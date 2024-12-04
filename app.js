@@ -3,10 +3,12 @@ import speakeasy from 'speakeasy';
 import qrcode from 'qrcode';
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
+import cors from 'cors';
 process.loadEnvFile();
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('Connected to MongoDB'))
@@ -95,7 +97,6 @@ app.post('/verify-2fa', async (req, res) => {
     }
 });
 
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+app.listen(process.env.PORT, () => {
+    console.log(`Server running on port ${process.env.PORT}`);
 });
